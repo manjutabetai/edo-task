@@ -12,6 +12,8 @@ dependencies:
   font_awesome_flutter: 
   google_fonts:
   date_picker_timeline: 
+  flutter_local_notifications: 
+
 
   flutter:
     sdk: flutter

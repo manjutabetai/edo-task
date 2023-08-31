@@ -1,4 +1,5 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
+import 'package:edo_task/service/notification_services.dart';
 import 'package:edo_task/service/theme_service.dart';
 import 'package:edo_task/ui/theme.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,17 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   DateTime _selectedDate = DateTime.now();
+  var notifyService;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    notifyService = NotifyService();
+    notifyService.initializeNotification();
+    notifyService.requestPermissions();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,29 +37,33 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 20,
             ),
             _appBar(),
-            Container(
-                margin: const EdgeInsets.only(top: 20),
-                child: DatePicker(
-                  DateTime.now(),
-                  locale: "ja_JP",
-                  height: 100,
-                  width: 70,
-                  selectionColor: MyColor.blue,
-                  initialSelectedDate: DateTime.now(),
-                  selectedTextColor: MyColor.white,
-                  dateTextStyle: MyTextStyle.medium,
-                  dayTextStyle: MyTextStyle.medium,
-                  monthTextStyle: MyTextStyle.medium,
-                  onDateChange: (date) {
-                    setState(() {
-                      _selectedDate = date;
-                    });
-                  },
-                )),
+            _calender(),
           ]),
         ),
       ),
     );
+  }
+
+  Container _calender() {
+    return Container(
+        margin: const EdgeInsets.only(top: 20),
+        child: DatePicker(
+          DateTime.now(),
+          locale: "ja_JP",
+          height: 100,
+          width: 70,
+          selectionColor: MyColor.blue,
+          initialSelectedDate: DateTime.now(),
+          selectedTextColor: MyColor.white,
+          dateTextStyle: MyTextStyle.medium,
+          dayTextStyle: MyTextStyle.medium,
+          monthTextStyle: MyTextStyle.medium,
+          onDateChange: (date) {
+            setState(() {
+              _selectedDate = date;
+            });
+          },
+        ));
   }
 
   Row _appBar() {
@@ -59,6 +75,15 @@ class _HomeScreenState extends State<HomeScreen> {
           style: MyTextStyle.heading,
         ),
         const Spacer(),
+        IconButton(
+            onPressed: () {
+              NotifyService()
+                  .displayNotification(title: '通知だよ', body: '毎日暑いのーー');
+            },
+            icon: const FaIcon(
+              FontAwesomeIcons.seedling,
+              size: 28,
+            )),
         // * テーマ切り替え
         IconButton(
             onPressed: () {

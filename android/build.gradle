@@ -6,6 +6,9 @@ buildscript {
     }
 
     dependencies {
+        // local notifi cations
+        // classpath 'com.android.tools.build:gradle:4.2.2'
+        // loca notifi cations
         classpath 'com.android.tools.build:gradle:7.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
