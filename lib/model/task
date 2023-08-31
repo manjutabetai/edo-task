@@ -1,0 +1,43 @@
+class Task {
+  int? id;
+  String? memo;
+  String? title;
+  int? isCompleted;
+  String? date;
+  int? color;
+  int? remind;
+  int? repeat;
+
+  Task({
+    this.color,
+    this.date,
+    this.id,
+    this.isCompleted,
+    this.memo,
+    this.remind,
+    this.repeat,
+    this.title,
+  });
+
+  Task.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    memo = json['memo'];
+    title = json['title'];
+    isCompleted = json['isCompleted'];
+    date = json['date']; 
+    remind = json['remind']; 
+    color = json['color'];
+    repeat = json['repeat'];
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'memo': memo,
+        'title': title,
+        'isCompleted': isCompleted,
+        'date': date,
+        'color': color,
+        'remind': remind,
+        'repeat': repeat,
+      };
+}

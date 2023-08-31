@@ -1,3 +1,4 @@
+import 'package:edo_task/service/db_service.dart';
 import 'package:edo_task/service/theme_service.dart';
 import 'package:edo_task/ui/screen/home_screen.dart';
 import 'package:edo_task/ui/theme.dart';
@@ -8,6 +9,7 @@ import 'package:get_storage/get_storage.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
+  await DBHelper.initDb();
   runApp(const MainApp());
 }
 

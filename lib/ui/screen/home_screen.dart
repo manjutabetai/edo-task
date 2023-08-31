@@ -1,4 +1,6 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
+import 'package:edo_task/controller/task_controller.dart';
+import 'package:edo_task/model/task';
 import 'package:edo_task/service/notification_services.dart';
 import 'package:edo_task/service/theme_service.dart';
 import 'package:edo_task/ui/screen/add_task_screen.dart';
@@ -19,6 +21,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   DateTime _selectedDate = DateTime.now();
   var notifyService;
+  final _taskController = Get.put(TaskController());
 
   @override
   void initState() {
@@ -40,6 +43,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           _appBar(),
           _calender(),
+          Expanded(child: Obx(() {
+            return ListView.builder(
+                itemCount: _taskController.taskList.length,
+                itemBuilder: (_, index) {
+                  Task task = _taskController.taskList[index];
+                  print(task.title);
+                  return Text(task.title.toString());
+                });
+          })),
+          // add button
           MyButton(
             label: '+ add new task',
             onTap: () => Get.to(const AddTaskScreen()),
