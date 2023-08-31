@@ -1,9 +1,12 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:edo_task/service/notification_services.dart';
 import 'package:edo_task/service/theme_service.dart';
+import 'package:edo_task/ui/screen/add_task_screen.dart';
 import 'package:edo_task/ui/theme.dart';
+import 'package:edo_task/ui/widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -29,17 +32,19 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(children: [
-            const SizedBox(
-              height: 20,
-            ),
-            _appBar(),
-            _calender(),
-          ]),
-        ),
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(children: [
+          const SizedBox(
+            height: 20,
+          ),
+          _appBar(),
+          _calender(),
+          MyButton(
+            label: '+ add new task',
+            onTap: () => Get.to(const AddTaskScreen()),
+          )
+        ]),
       ),
     );
   }

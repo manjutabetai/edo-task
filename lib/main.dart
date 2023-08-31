@@ -1,6 +1,6 @@
 import 'package:edo_task/service/theme_service.dart';
+import 'package:edo_task/ui/screen/home_screen.dart';
 import 'package:edo_task/ui/theme.dart';
-import 'package:edo_task/ui/widget/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
