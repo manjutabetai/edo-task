@@ -217,10 +217,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     );
   }
 
-  void _addTask() {
+  Future<void> _addTask() async {
     if (_titleController.text.isNotEmpty) {
-      _addTaskToDB();
-
+      await _addTaskToDB();
+      await _taskController.getTasks();
       Get.back();
     } else if (_titleController.text.isEmpty) {
       Get.snackbar('エラー', 'タスクが入力されていません！',
@@ -234,39 +234,28 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     }
   }
 
-  String _getRemindLabel(int value) {
-    switch (value) {
-      case 0:
-        return 'なし';
-      case 1:
-        return '前日(朝9:00)';
-      case 2:
-        return '前々日(朝9:00)';
-      case 3:
-        return 'カスタム';
-      default:
-        return 'なし'; // デフォルト値の設定
-    }
-  }
-
   String _getRepeatLabel(int value) {
-    switch (value) {
-      case 0:
-        return 'なし';
-      case 1:
-        return '毎日';
-      case 2:
-        return '毎週';
-      case 3:
-        return '毎月';
-      case 4:
-        return '毎年';
-      default:
-        return 'なし'; // デフォルト値の設定
-    }
+    return {
+          0: 'なし',
+          1: '毎日',
+          2: '毎週',
+          3: '毎月',
+          4: '毎年',
+        }[value] ??
+        'なし';
   }
 
-  _addTaskToDB() async {
+  String _getRemindLabel(int value) {
+    return {
+          0: 'なし',
+          1: '前日(朝9:00)',
+          2: '前々日(朝9:00)',
+          3: 'カスタム',
+        }[value] ??
+        'なし';
+  }
+
+  Future<void> _addTaskToDB() async {
     Task task = Task(
       color: _selectedColor,
       date: DateFormat.yMd().format(_selectedDate),
